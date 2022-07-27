@@ -8,15 +8,11 @@ describe.each([Bowerman, Swordsman, Magician, Daemon, Undead, Zombie])('Пров
   });
 
   test('Не принимает имя короче двух символов', () => {
-    expect(() => new Character('N', Character.name)).toThrow();
+    expect(() => new Character('N')).toThrow();
   });
 
   test('Не принимает имя длиннее десяти символов', () => {
-    expect(() => new Character('_1234567890', Character.name)).toThrow();
-  });
-
-  test('Не принимает категориию персонажа которого нет в списке', () => {
-    expect(() => new Character('Name', 'Lion King')).toThrow();
+    expect(() => new Character('_1234567890')).toThrow();
   });
 
   test.each([
@@ -45,7 +41,7 @@ describe.each([Bowerman, Swordsman, Magician, Daemon, Undead, Zombie])('Пров
       },
     },
   ])('Срабатывает метод levelUp с полем %s', ({ prop, func }) => {
-    const character = new Character('Name', Character.name);
+    const character = new Character('Name');
     const propAfter = func(character);
     character.levelUp();
 
@@ -53,7 +49,7 @@ describe.each([Bowerman, Swordsman, Magician, Daemon, Undead, Zombie])('Пров
   });
 
   test('Проверяем, что нельзя повысить левел умершего', () => {
-    const character = new Character('Name', Character.name);
+    const character = new Character('Name');
     function levelUpCheck() {
       character.health = 0;
       character.levelUp();
@@ -63,7 +59,7 @@ describe.each([Bowerman, Swordsman, Magician, Daemon, Undead, Zombie])('Пров
   });
 
   test('Проверяем нанесение урона, метод damage', () => {
-    const character = new Character('Name', Character.name);
+    const character = new Character('Name');
     const points = 10;
     const healthAfterDamage = character.health - points * (1 - character.defence / 100);
     character.damage(points);
@@ -72,7 +68,7 @@ describe.each([Bowerman, Swordsman, Magician, Daemon, Undead, Zombie])('Пров
   });
 
   test('При уроне значение health не может становиться меньше нуля', () => {
-    const character = new Character('Name', Character.name);
+    const character = new Character('Name');
     const points = 50;
     const healthAfterDamage = 0;
     character.health = 1;
